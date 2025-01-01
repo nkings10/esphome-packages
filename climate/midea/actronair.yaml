@@ -22,6 +22,8 @@ climate:
       - TURBO
     supported_swing_modes:
       - VERTICAL
+      - HORIZONTAL
+      - BOTH
     outdoor_temperature:
       name: Outdoor Temperature
       id: midea_outdoor
