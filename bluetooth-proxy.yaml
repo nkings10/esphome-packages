@@ -2,7 +2,6 @@ esp32:
   board: esp32dev
   framework:
     type: esp-idf
-    version: latest
 
 logger:
 
