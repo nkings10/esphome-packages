@@ -1,0 +1,70 @@
+esp8266:
+  board: esp01_1m
+
+logger:
+
+captive_portal:
+
+binary_sensor:
+  - platform: gpio
+    pin:
+      number: GPIO0
+      mode:
+        input: true
+        pullup: true
+      inverted: true
+    id: button_1
+    on_press:
+      then:
+        - switch.toggle: s1_power
+
+  - platform: gpio
+    pin:
+      number: GPIO9
+      mode:
+        input: true
+        pullup: true
+      inverted: true
+    id: button_2
+    on_press:
+      then:
+        - switch.toggle: s2_power
+
+  - platform: gpio
+    pin:
+      number: GPIO10
+      mode:
+        input: true
+        pullup: true
+      inverted: true
+    id: button_3
+    on_press:
+      then:
+        - switch.toggle: s3_power
+
+  - platform: status
+    name: Status
+
+switch:
+  - platform: gpio
+    name: S1 Power
+    id: s1_power
+    pin: GPIO12
+    restore_mode: ALWAYS_OFF
+
+  - platform: gpio
+    name: S2 Power
+    id: s2_power
+    pin: GPIO5
+    restore_mode: ALWAYS_OFF
+
+  - platform: gpio
+    name: S3 Power
+    id: s3_power
+    pin: GPIO4
+    restore_mode: ALWAYS_OFF
+
+status_led:
+  pin:
+    number: GPIO13
+    inverted: true

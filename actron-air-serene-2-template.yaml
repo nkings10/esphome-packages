@@ -1,0 +1,27 @@
+# Copy this file into ESPHome for each ActronAir Serene 2 AC unit, then
+# replace the example names and secret keys with that device's values.
+esphome:
+  name: example-ac
+  friendly_name: Example AC
+
+api:
+  encryption:
+    key: !secret example_ac__api_encryption_key
+
+ota:
+  - platform: esphome
+    password: !secret example_ac__ota_password
+
+wifi:
+  ssid: !secret wifi_ssid
+  password: !secret wifi_password
+  ap:
+    ssid: Example-AC
+    password: !secret example_ac__wifi_ap_password
+
+packages:
+  remote_package:
+    url: https://github.com/nkings10/esphome-packages
+    refresh: 0d
+    files:
+      - actron-air-serene-2.yaml

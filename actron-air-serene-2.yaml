@@ -1,0 +1,113 @@
+esphome:
+  min_version: 2024.7.0
+  platformio_options:
+    upload_speed: 2000000
+
+esp8266:
+  board: esp01_1m
+  restore_from_flash: true
+
+logger:
+  baud_rate: 0
+
+captive_portal:
+
+safe_mode:
+
+web_server:
+  port: 80
+
+uart:
+  id: uart8266
+  tx_pin: 1
+  rx_pin: 3
+  baud_rate: 9600
+  parity: NONE
+
+status_led:
+  pin:
+    number: 2
+    inverted: on
+
+button:
+  - platform: restart
+    name: Restart
+  - platform: safe_mode
+    name: Safe Mode
+
+text_sensor:
+  - platform: template
+    name: Uptime
+    id: uptime_txt
+    entity_category: diagnostic
+    icon: mdi:clock-start
+  - platform: wifi_info
+    ip_address:
+      name: IP
+      icon: mdi:ip-network
+    mac_address:
+      name: MAC
+      icon: mdi:ip-network
+    ssid:
+      name: SSID
+      icon: mdi:wifi
+
+sensor:
+  - platform: uptime
+    id: uptime_seconds
+    update_interval: 60s
+    on_raw_value:
+      then:
+        - text_sensor.template.publish:
+            id: uptime_txt
+            state: !lambda |-
+              std::string result;
+              unsigned seconds = static_cast<unsigned>(x);
+              unsigned days = seconds / (24 * 3600);
+              seconds = seconds % (24 * 3600);
+              if (days != 0) {
+                result += to_string(days);
+                result += "d ";
+              }
+              unsigned hours = seconds / 3600;
+              seconds = seconds % 3600;
+              if (hours != 0) {
+                result += to_string(hours);
+                result += "h ";
+              }
+              unsigned minutes = seconds / 60;
+              result += to_string(minutes);
+              result += 'm';
+              return result;
+  - platform: wifi_signal
+    name: RSSI
+    update_interval: 60s
+
+climate:
+  - platform: midea
+    icon: mdi:air-conditioner
+    name: None
+    id: midea_climate
+    autoconf: false
+    supported_modes:
+      - FAN_ONLY
+      - HEAT_COOL
+      - COOL
+      - HEAT
+      - DRY
+    supported_presets:
+      - SLEEP
+      - ECO
+      - BOOST
+    custom_presets:
+      - FREEZE_PROTECTION
+    custom_fan_modes:
+      - SILENT
+      - TURBO
+    supported_swing_modes:
+      - VERTICAL
+      - HORIZONTAL
+      - BOTH
+    outdoor_temperature:
+      name: Outdoor Temperature
+      id: midea_outdoor
