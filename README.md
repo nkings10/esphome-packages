@@ -17,6 +17,20 @@ For each new device, copy the matching `*-template.yaml` into ESPHome, then upda
 
 The shared `wifi_ssid` and `wifi_password` secrets can stay the same if they already exist in ESPHome.
 
+## Bluetooth Proxy
+
+### Files
+
+- `bluetooth-proxy.yaml`
+- `bluetooth-proxy-template.yaml`
+
+### Template Values
+
+- Replace `example-bp` with the device name.
+- Replace `Example Bluetooth Proxy` with the friendly name.
+- Replace the `example_bp__*` secret names with that device's secret names.
+- Replace `Example-BP` with the fallback Wi-Fi AP name.
+
 ## ActronAir Serene 2
 
 ### Files
