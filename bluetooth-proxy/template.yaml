@@ -1,5 +1,3 @@
-# Copy this file into ESPHome for each Bluetooth Proxy, then replace the
-# example names and secret keys with that device's values.
 esphome:
   name: example-bp
   friendly_name: Example Bluetooth Proxy
@@ -24,4 +22,4 @@ packages:
     url: https://github.com/nkings10/esphome-packages
     refresh: 0d
     files:
-      - bluetooth-proxy.yaml
+      - bluetooth-proxy/package.yaml
